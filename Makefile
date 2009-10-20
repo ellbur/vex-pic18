@@ -16,6 +16,7 @@ OBJECTS   := $(patsubst %, $(BUILD_DIR)/%, $(SOURCE:.c=.o))
 all : $(TARGET)
 
 $(TARGET): $(OBJECTS)
+	@echo "Linking \"$(TARGET).hex\"."
 	@$(LD) $(LDFLAGS) $(BUILD_DIR)/$(TARGET).hex $(OBJECTS)
 
 clean :
@@ -27,4 +28,5 @@ install :
 	@vexctl upload $(BUILD_DIR)/$(TARGET).hex
 
 $(BUILD_DIR)/%.o : %.c
-	@$(CC) $(CFLAGS) $< -fo=$@ -fe=$(BUILD_DIR)/$*.err
+	@$(CC) $(CFLAGS) $< -fo=$@ -fe=$(BUILD_DIR)/$*.err | tail +10
+	@echo "Building \"$<\"."
