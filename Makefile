@@ -1,5 +1,5 @@
 TARGET    = $(BUILD_DIR)/vex_fw.hex
-MCCPATH   = /opt/mcc18-2.4
+MCCPATH   = /opt/mcc18
 BUILD_DIR = build
 CC        = wine $(MCCPATH)/bin/mcc18.exe
 LD        = wine $(MCCPATH)/bin/mplink.exe
