@@ -7,6 +7,12 @@ RM        = rm -f
 VEX_LIB   = Vex_library.lib
 CFLAGS    = /i"$(MCCPATH)/h" -p=18F8520
 LDFLAGS   = 18f8520user.lkr $(VEX_LIB) /l"$(MCCPATH)/lib" /a INHX32 /o
+LD_FILTER = grep -v '^Copyright (c) [0-2][0-9][0-9][0-9] Microchip Technology Inc.'\
+	    | grep -v '^MP2HEX 3.90, COFF to HEX File Converter'\
+	    | grep -v '^MP2COD 3.90, COFF to COD File Converter'\
+	    | grep -v '^MPLINK 3.90, Linker'\
+	    | grep -v '^Errors    : 0'
+
 SOURCE    = ifi_startup.c\
             ifi_utilities.c\
             main.c\
@@ -45,7 +51,7 @@ $(BUILD_DIR) :
 
 %.hex : $(OBJECTS)
 	@echo "HEX $(@F)"
-	@$(LD) $(LDFLAGS) $(TARGET) $^
+	@$(LD) $(LDFLAGS) $(TARGET) $^ | $(LD_FILTER)
 
 %.o : $(@F:.o=.c) $(HEADERS)
 	@echo "OBJ $(@F)"
