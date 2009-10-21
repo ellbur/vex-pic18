@@ -16,8 +16,6 @@
 #include "user_routines.h"
 #include "printf_lib.h"
 
-#define CODE_VERSION            2     /* Use this def. to keep track of your version # */
-
 #define BUTTON_REV_THRESH       100
 #define BUTTON_FWD_THRESH       154
 #define NEUTRAL_VALUE           127
