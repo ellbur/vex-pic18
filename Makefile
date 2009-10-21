@@ -37,7 +37,7 @@ install : $(TARGET)
 .PHONY : clean
 clean :
 	@echo "CLEAN"
-	@$(RM) $(OBJECTS) $(OBJECTS:.o=.err)\
+	@-$(RM) $(OBJECTS) $(OBJECTS:.o=.err)\
 	       $(TARGET)  $(TARGET:.hex=.cod) $(TARGET:.hex=.lst)
 
 $(BUILD_DIR) :
