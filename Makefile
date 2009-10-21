@@ -13,7 +13,7 @@ SOURCE    = ifi_startup.c\
             printf_lib.c\
             user_routines_fast.c\
             user_routines.c
-HEADER    = delays.h\
+HEADERS    = delays.h\
             ifi_aliases.h\
             ifi_default.h\
             ifi_picdefs.h\
@@ -47,7 +47,7 @@ $(BUILD_DIR) :
 	@echo "HEX $(@F)"
 	@$(LD) $(LDFLAGS) $(TARGET) $^
 
-%.o : $(@F:.o=.c) $(HEADER)
+%.o : $(@F:.o=.c) $(HEADERS)
 	@echo "OBJ $(@F)"
 	@$(CC) $(CFLAGS) $< -fo=$@ -fe=$(@:.o=.err)
 
