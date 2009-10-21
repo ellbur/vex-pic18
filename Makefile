@@ -25,6 +25,7 @@ OBJECTS   = $(patsubst %, $(BUILD_DIR)/%, $(SOURCE:.c=.o))
 vpath %.c ./
 vpath %.o $(BUILD_DIR)
 
+.SECONDARY :
 
 all : $(TARGET) | $(BUILD_DIR)
 .PHONY : all
@@ -40,7 +41,7 @@ clean :
 	       $(TARGET)  $(TARGET:.hex=.cod) $(TARGET:.hex=.lst)
 
 $(BUILD_DIR) :
-	@mkdir $(BUILD_DIR)
+	@mkdir $@
 
 %.hex : $(OBJECTS)
 	@echo "HEX $(@F)"
