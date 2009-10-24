@@ -20,7 +20,7 @@
 #define BUTTON_FWD_THRESH       154
 #define NEUTRAL_VALUE           127
 
-
+#define CODE_VERSION		"basic cat"
 /*** DEFINE USER VARIABLES AND INITIALIZE THEM HERE ***/
 /* EXAMPLES: (see MPLAB C18 User's Guide, p.9 for all types)
 unsigned char wheel_revolutions = 0; (can vary from 0 to 255)
@@ -223,7 +223,7 @@ void User_Initialization (void)
   /* This code receives the 1st packet from master to obtain the version # */
   while (!statusflag.NEW_SPI_DATA);  /* Wait for 1st packet from master */
   Getdata(&rxdata);   
-  printf("VEX - Master v%d, User v%d\n",(int)rxdata.master_version,(int)CODE_VERSION);        
+  printf("VEX - Master v%d, User Ver:\""CODE_VERSION"\"\n",(int)rxdata.master_version);
 #endif
 }
 
