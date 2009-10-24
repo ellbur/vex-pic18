@@ -1,6 +1,5 @@
 TARGET    = $(BUILD_DIR)/vex_fw.hex
-#MCCPATH   = /opt/mcc18-2.4
-MCCPATH   = D:/User/Applications/mcc18-2.4/
+MCCPATH   = /opt/mcc18-2.4
 BUILD_DIR = build
 CC        = $(MCCPATH)/bin/mcc18
 LD        = $(MCCPATH)/bin/mplink
@@ -9,8 +8,7 @@ VEX_LIB   = Vex_library.lib
 CFLAGS    = /i "$(MCCPATH)/h" -p=18F8520
 LIBPATH   = "$(MCCPATH)/lib/"
 LDFLAGS   = 18f8520user.lkr $(VEX_LIB) /l "$(LIBPATH)" /a INHX32 /o
-LD_FILTER = 
-#grep -v '^Copyright (c) [0-2][0-9][0-9][0-9] Microchip Technology Inc.'\
+#LD_FILTER = grep -v '^Copyright (c) [0-2][0-9][0-9][0-9] Microchip Technology Inc.'\
 	    | grep -v '^MP2HEX 3.90, COFF to HEX File Converter'\
 	    | grep -v '^MP2COD 3.90, COFF to COD File Converter'\
 	    | grep -v '^MPLINK 3.90, Linker'\
@@ -50,7 +48,7 @@ $(BUILD_DIR) :
 
 %.hex : $(OBJECTS)
 	@echo "HEX $(@F)"
-	@$(LD) $(LDFLAGS) $(TARGET) $^
+	@$(LD) $(LDFLAGS) $(TARGET) $^ #| $(LD_FILTER)
 
 $(BUILD_DIR)/%.o : %.c $(HEADERS)
 	@echo "OBJ $(@F)"
