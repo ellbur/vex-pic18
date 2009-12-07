@@ -14,19 +14,8 @@ LDFLAGS   = 18f8520user.lkr $(VEX_LIB) /l "$(LIBPATH)" /a INHX32 /o
 	    | grep -v '^MPLINK 3.90, Linker'\
 	    | grep -v '^Errors    : 0'
 
-SOURCE    = ifi_startup.c\
-            ifi_utilities.c\
-            main.c\
-            printf_lib.c\
-            user_routines_fast.c\
-            user_routines.c
-HEADERS    = delays.h\
-            ifi_aliases.h\
-            ifi_default.h\
-            ifi_picdefs.h\
-            ifi_utilities.h\
-            printf_lib.h\
-            user_routines.h
+SOURCE    = $(wildcard *.c)
+HEADERS    = $(wildcand *.h)
 OBJECTS   = $(patsubst %, $(BUILD_DIR)/%, $(SOURCE:.c=.o))
 
 .SECONDARY :
