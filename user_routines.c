@@ -16,6 +16,8 @@
 #include "user_routines.h"
 #include "printf_lib.h"
 
+#include "ru_slow_loop.h"
+
 #define BUTTON_REV_THRESH       100
 #define BUTTON_FWD_THRESH       154
 #define NEUTRAL_VALUE           127
@@ -240,6 +242,7 @@ void Process_Data_From_Master_uP(void)
 {
   Getdata(&rxdata);   /* Get fresh data from the master microprocessor. */
 
+  pwm01 = pwm02 = pwm03 = pwm04 = pwm05 = pwm06 = pwm07 = pwm08 = 127;
   Default_Routine();  /* Optional.  See below. */
 
   Putdata(&txdata);             /* DO NOT CHANGE! */
@@ -256,12 +259,10 @@ void Process_Data_From_Master_uP(void)
 *******************************************************************************/
 void Default_Routine(void)
 {
-	pwm01 = pwm02 = PWM_in5;
-	pwm07 = pwm08 = 255 - PWM_in5;
-	
-	pwm03 = pwm04 = PWM_in6;
-	pwm05 = pwm06 = 255 - PWM_in6;	
-
+	// This could go in Process_Data_From_Master_uP, but I know that if we
+	// don't call Default_Routine() somebody is going to get SO CONFUSED
+	// wondering why their code never gets executed.
+	RU_Slow_Loop();
 } /* END Default_Routine(); */
 
 
