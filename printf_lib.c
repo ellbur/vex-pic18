@@ -250,7 +250,7 @@ static int print(char *format, int *varg)
 		}
 		else {
 		out:
-      if (*format == '\n') *format = '\r';  /* replace line feed with cr */
+//       if (*format == '\n') *format = '\r';  /* replace line feed with cr */
 			Write_Byte_To_Uart (*format);
 			++pc;
 		}
