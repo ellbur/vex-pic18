@@ -1,10 +1,11 @@
+
 TARGET    = $(BUILD_DIR)/vex_fw.hex
 MCCPATH   = /opt/mcc18
 BUILD_DIR = build
 CC        = $(MCCPATH)/bin/mcc18
 LD        = $(MCCPATH)/bin/mplink
 RM        = rm -f
-VEX_LIB   = Vex_library.lib
+VEX_LIB   = Vex_alltimers_auton_test.lib
 CFLAGS    = /i "$(MCCPATH)/h" -p=18F8520
 LIBPATH   = "$(MCCPATH)/lib/"
 LDFLAGS   = 18f8520user.lkr $(VEX_LIB) /l "$(LIBPATH)" /a INHX32 /o
@@ -14,8 +15,10 @@ LDFLAGS   = 18f8520user.lkr $(VEX_LIB) /l "$(LIBPATH)" /a INHX32 /o
 	    | grep -v '^MPLINK 3.90, Linker'\
 	    | grep -v '^Errors    : 0'
 
-SOURCE    = $(wildcard *.c)
-HEADERS    = $(wildcand *.h)
+include Sources
+
+SOURCE    = $(SOURCES)
+HEADERS   = $(wildcard *.h)
 OBJECTS   = $(patsubst %, $(BUILD_DIR)/%, $(SOURCE:.c=.o))
 
 .SECONDARY :

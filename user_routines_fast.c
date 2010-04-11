@@ -19,6 +19,7 @@
 #include "user_routines.h"
 #include "printf_lib.h"
 #include "delays.h"
+#include "ru_slow_loop.h"
 
 
 /*** DEFINE USER VARIABLES AND INITIALIZE THEM HERE ***/
@@ -40,40 +41,10 @@ void InterruptVectorLow (void)
   _endasm
 }
 
-
-/*******************************************************************************
-* FUNCTION NAME: InterruptHandlerLow
-* PURPOSE:       Low priority interrupt handler
-* If you want to use these external low priority interrupts or any of the
-* peripheral interrupts then you must enable them in your initialization
-* routine.  Innovation First, Inc. will not provide support for using these
-* interrupts, so be careful.  There is great potential for glitchy code if good
-* interrupt programming practices are not followed.  Especially read p. 28 of
-* the "MPLAB(R) C18 C Compiler User's Guide" for information on context saving.
-* CALLED FROM:   this file, InterruptVectorLow routine
-* ARGUMENTS:     none
-* RETURNS:       void
-*******************************************************************************/
-#pragma code
-#pragma interruptlow InterruptHandlerLow save=PROD /* You may want to save additional symbols. */
-
-void InterruptHandlerLow ()     
-{                               
-  unsigned char int_byte;       
-  if (INTCON3bits.INT2IF && INTCON3bits.INT2IE)       /* The INT2 pin is RB2/DIG I/O 1. */
-  { 
-    INTCON3bits.INT2IF = 0;
-  }
-  else if (INTCON3bits.INT3IF && INTCON3bits.INT3IE)  /* The INT3 pin is RB3/DIG I/O 2. */
-  {
-    INTCON3bits.INT3IF = 0;
-  }
-  else if (INTCONbits.RBIF && INTCONbits.RBIE)  /* DIG I/O 3-6 (RB4, RB5, RB6, or RB7) changed. */
-  {
-    int_byte = PORTB;          /* You must read or write to PORTB */
-    INTCONbits.RBIF = 0;     /*     and clear the interrupt flag         */
-  }                                        /*     to clear the interrupt condition.  */
-}
+/* InterruptHandlerLow has been moved!!!!
+ *
+ * to ru_interrupts.h
+ */
 
 /*******************************************************************************
 * FUNCTION NAME: User_Autonomous_Code
@@ -102,9 +73,11 @@ void User_Autonomous_Code(void)
       Getdata(&rxdata);   /* DO NOT DELETE, or you will be stuck here forever! */
 
      /* Add your own code here. */
-      printf("%2x : %2x %2x %2x %2x %2x %2x\n",(int)rxdata.rc_receiver_status_byte.allbits,
-        (int)PWM_in1,(int)PWM_in2,(int)pwm01,(int)pwm02,(int)pwm03,(int)pwm04);
-
+      //printf("%2x : %2x %2x %2x %2x %2x %2x\n",(int)rxdata.rc_receiver_status_byte.allbits,
+       // (int)PWM_in1,(int)PWM_in2,(int)pwm01,(int)pwm02,(int)pwm03,(int)pwm04);
+	
+	   RU_Auto_Slow_Loop();
+	   
       Putdata(&txdata);   /* DO NOT DELETE, or you will get no PWM outputs! */
     }
   }

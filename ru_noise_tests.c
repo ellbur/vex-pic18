@@ -46,7 +46,7 @@ void Sensor_Print_Routine(void)
 {
 	unsigned char i;
 	
-	printf("%d,%d,%d,", (int) time_count, (int) MOTOR, (int) noise_level);
+	//printf("%d,%d,%d,", (int) time_count, (int) MOTOR, (int) noise_level);
 	
 	for (i=0; i<NUM_READS; i++)
 		printf("%d,", (int) ir_sensor_1_readings[i]);
@@ -69,5 +69,5 @@ void Motor_Vibrate_Routine(void)
 	if (time_count % MOTOR_DELAY == 0)
 		motor_dir = -motor_dir;
 	
-	MOTOR = 127 + noise_level * motor_dir;
+	// MOTOR = 127 + noise_level * motor_dir;
 }

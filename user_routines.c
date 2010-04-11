@@ -219,6 +219,8 @@ void User_Initialization (void)
   Putdata(&txdata);             /* DO NOT CHANGE! */
   User_Proc_Is_Ready();         /* DO NOT CHANGE! - last line of User_Initialization */
 
+  RU_Init();
+  
 #ifdef _SIMULATOR
     statusflag.NEW_SPI_DATA = 1;
 #else
@@ -262,7 +264,7 @@ void Default_Routine(void)
 	// This could go in Process_Data_From_Master_uP, but I know that if we
 	// don't call Default_Routine() somebody is going to get SO CONFUSED
 	// wondering why their code never gets executed.
-	RU_Slow_Loop();
+	RU_Tele_Slow_Loop();
 } /* END Default_Routine(); */
 
 
