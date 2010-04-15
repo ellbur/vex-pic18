@@ -158,34 +158,10 @@ static void Setup_Who_Controls_Pwms(int pwmSpec1,int pwmSpec2,int pwmSpec3,int p
 *******************************************************************************/
 void User_Initialization (void)
 {
-/* FIRST: Set up the pins you want to use as analog INPUTs. */
-  IO1 = IO2 = INPUT;        /* Used for analog inputs. */
-    /* 
-     Note: IO1 = IO2 = IO3 = IO4 = INPUT 
-           is the same as the following:
-
-           IO1 = INPUT;
-           IO2 = INPUT;
-           IO3 = INPUT;
-           IO4 = INPUT;
-    */
-
-/* SECOND: Configure the number of analog channels. */
-// TODO: Fix the TWO_ANALOG missing symbol error.
-  Set_Number_of_Analog_Channels(TWO_ANALOG);     /* See ifi_aliases.h */
-
-/* THIRD: Set up any extra digital inputs. */
-  /* The six INTERRUPTS are already digital inputs. */
-  /* If you need more then set them up here. */
-  /* IOxx = IOyy = INPUT; */
-  IO3 = IO4 = IO5 = IO6 = IO7 = IO8 = INPUT;        
-  IO9 = IO10 = IO11 = IO12 = IO13 = IO15 = INPUT;        
-
-/* FOURTH: Set up the pins you want to use as digital OUTPUTs. */
-  IO14 = IO16 = OUTPUT;      
-
-/* FIFTH: Initialize the values on the digital outputs. */
-  rc_dig_out14 = rc_dig_out16 = 0; 
+  IO1 =  IO2 =  IO3 =  IO4 =  IO5 =  IO6 =  IO7 =  IO8 = INPUT;        
+  IO9 = IO10 = IO11 = IO12 = IO13 = IO14 = IO15 = IO16 = INPUT;        
+  
+  Set_Number_of_Analog_Channels(SIXTEEN_ANALOG);     /* See ifi_aliases.h */
 
 /* SIXTH: Set your initial PWM values.  Neutral is 127. */
   pwm01 = pwm02 = pwm03 = pwm04 = pwm05 = pwm06 = pwm07 = pwm08 = 127;

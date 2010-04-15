@@ -1,7 +1,8 @@
 
-TARGET    = $(BUILD_DIR)/vex_fw.hex
+TARGET    = $(HEX_DIR)/vex.hex
 MCCPATH   = /opt/mcc18
 BUILD_DIR = build
+HEX_DIR   = hex
 CC        = $(MCCPATH)/bin/mcc18
 LD        = $(MCCPATH)/bin/mplink
 RM        = rm -f
@@ -23,7 +24,7 @@ OBJECTS   = $(patsubst %, $(BUILD_DIR)/%, $(SOURCE:.c=.o))
 
 .SECONDARY :
 
-all : $(TARGET) | $(BUILD_DIR)
+all : $(TARGET) | $(BUILD_DIR) $(HEX_DIR)
 .PHONY : all
 
 .PHONY : install
@@ -33,14 +34,18 @@ install : $(TARGET)
 .PHONY : clean
 clean :
 	@echo "CLEAN"
-	@-$(RM) $(BUILD_DIR)/*
+	@-$(RM) $(BUILD_DIR)/* $(HEX_DIR)/*
 
 $(BUILD_DIR) :
+	@mkdir $@
+
+$(HEX_DIR) :
 	@mkdir $@
 
 %.hex : $(OBJECTS)
 	@echo "HEX $(@F)"
 	@$(LD) $(LDFLAGS) $(TARGET) $^ #| $(LD_FILTER)
+	@$(RM) $(HEX_DIR)/*.cod $(HEX_DIR)/*.lst
 
 $(BUILD_DIR)/%.o : %.c $(HEADERS)
 	@echo "OBJ $(@F)"

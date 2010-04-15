@@ -70,6 +70,7 @@ void Drive_PID_Routine(float left_target, float right_target)
 		Encoder_Calc_Spin_Timing(&encoders[1]) / 360.0 * 2*PI,
 		right_target);
 	
-	Set_Left_Speed(drive_pids[0].output_s_pwm);
-	Set_Right_Speed(drive_pids[1].output_s_pwm);
+	Set_Tele_Tank_Drive(
+		drive_pids[0].output_s_pwm,
+		drive_pids[1].output_s_pwm);
 }

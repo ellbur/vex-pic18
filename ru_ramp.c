@@ -7,7 +7,8 @@
 void Set_Ramp_Speed(int spwm)
 {
 #if kevin
-	RAMP = Normalize_PWM(To_U(spwm));
+	RAMP_1 = Normalize_PWM(To_U(spwm));
+	RAMP_2 = RAMP_1;
 #elif nitish
 	LEFT_SCISSOR  = Normalize_PWM(To_U(Flip(spwm)));
 	RIGHT_SCISSOR = Normalize_PWM(To_U(spwm));
@@ -41,4 +42,15 @@ void Manual_Joy_Ramp_Routine(void)
 	else {
 		Set_Ramp_Speed(0);
 	}
+}
+
+int Get_Ramp_Pot(void)
+{
+	int pot;
+	
+	pot = Get_Analog_Value(RAMP_POT);
+	if (ramp_pot_reverse)
+		pot = 1023 - pot;
+	
+	return pot;
 }

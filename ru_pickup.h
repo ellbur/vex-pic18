@@ -6,7 +6,7 @@
 
 extern char pickup_done;
 
-void Pickp_Meta_Init(void);
-void Pickp_Meta_Routine(void);
+void Pickup_Meta_Init(void);
+void Pickup_Meta_Routine(void);
 
 #endif

@@ -2,8 +2,8 @@
 #ifndef _ru_config_h
 #define _ru_config_h 1
 
-#define nitish 1
-#define kevin  0
+#define nitish 0
+#define kevin  1
 
 #include "ru_io_aliases.h"
 #include "ifi_aliases.h"
@@ -19,6 +19,8 @@
 #define SLOW_LOOP_PERIOD        ((float) 18.6e-3)
 
 #define PI                      ((float) 3.14159265358979)
+
+#define enable_drive_pid 0
 
 extern unsigned char not_wired;
 

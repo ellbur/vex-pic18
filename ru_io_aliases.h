@@ -36,31 +36,22 @@
 
 #if kevin
 
-// OMNI
 #define LEFT_WHEEL        pwm01
 #define RIGHT_WHEEL       pwm02
-#define BACK_WHEEL        pwm07
-#define BACK_WHEEL_1      pwm07
-#define BACK_WHEEL_2      pwm08
+#define RAMP_1            pwm03
+#define RAMP_2            pwm04
+#define LEFT_SHOULDER_1   pwm05
+#define RIGHT_SHOULDER_1  pwm06
+#define LEFT_SHOULDER_2   pwm07
+#define RIGHT_SHOULDER_2  pwm08
 
-// TANK
-#define LEFT_WHEEL_1      pwm01
-#define RIGHT_WHEEL_1     pwm02
-#define LEFT_WHEEL_2      pwm03
-#define RIGHT_WHEEL_2     pwm04
+#define SHOULDER_POT      rc_ana_in01
+#define RAMP_POT          rc_ana_in02
+#define BUMPER_SWITCH     rc_dig_in03
 
-#define LEFT_SHOULDER     pwm05
-#define RIGHT_SHOULDER    pwm06
-
-#define RAMP              pwm04
-
-#define RAMP_SWITCH       rc_dig_in04
-#define SHOULDER_POT      rc_ana_in05
-#define BUMPER_SWITCH     rc_dig_in06
-
-#define FRONT_IR          rc_ana_in05
-#define SIDE_FRONT_IR     rc_ana_in06
-#define SIDE_REAR_IR      rc_ana_in07
+#define FRONT_IR          rc_ana_in08
+#define SIDE_FRONT_IR     rc_ana_in09
+#define SIDE_REAR_IR      rc_ana_in10
 
 #endif
 

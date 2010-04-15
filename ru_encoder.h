@@ -5,7 +5,8 @@
 #define NUM_ENCODERS 2
 
 #define TICK_WAIT_TIMEOUT ((signed long) 2000)
-#define TICKS_PER_METER ((float) 1088.6) // Wrong. Needs to be measured.
+#define TICKS_PER_METER  ((float) 1088.6) // Wrong. Needs to be measured.
+#define TICKS_PER_ROBOT_RADIAN ((float) 96.7) // Wrong. Needs to be measured.
 
 // Make this 1 more than a multiple of 4
 #define ENCODER_BUFFER_SIZE 25

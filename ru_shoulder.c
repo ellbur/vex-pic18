@@ -5,8 +5,11 @@
 
 void Set_Shoulder_Speed(int s_pwm)
 {
-	LEFT_SHOULDER  = Normalize_PWM(To_U(Flip(s_pwm)));
-	RIGHT_SHOULDER = Normalize_PWM(To_U(s_pwm));
+	LEFT_SHOULDER_1  = Normalize_PWM(To_U(Flip(s_pwm)));
+	RIGHT_SHOULDER_1 = Normalize_PWM(To_U(s_pwm));
+	
+	LEFT_SHOULDER_2  = LEFT_SHOULDER_1;
+	RIGHT_SHOULDER_2 = RIGHT_SHOULDER_2;
 }
 
 void Manual_Shoulder_Routine(void)
@@ -19,7 +22,9 @@ int Get_Shoulder_Pot(void)
 	int pot;
 	
 	pot = Get_Analog_Value(SHOULDER_POT);
-	if (pot > 900) return 0;
+	if (shoulder_pot_reverse) {
+		pot = 1023 - pot;
+	}
 	
 	return pot;
 }

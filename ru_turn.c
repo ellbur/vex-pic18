@@ -21,7 +21,7 @@ double target_amount;
 static void Turning_Init(void);
 static void Turning_Routine(void);
 
-static void Done();
+static void Done(void);
 
 // ----------------------------------------------------------
 
@@ -38,7 +38,7 @@ void Turn_Meta_Routine(void)
 	}
 }
 
-static void Done()
+static void Done(void)
 {
 	turn_state = DONE;
 	turn_done  = 1;
@@ -75,9 +75,9 @@ static void Turning_Routine(void)
 	}
 	
 	if (target_amount < 0) {
-		Set_Tank_Drive(+127, -127);
+		Set_Auto_Tank_Drive(+127, -127);
 	}
 	else {
-		Set_Tank_Drive(-127, +127);
+		Set_Auto_Tank_Drive(-127, +127);
 	}
 }

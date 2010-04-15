@@ -24,6 +24,7 @@
 #include "ru_ir_test.h"
 #include "ru_ir.h"
 #include "ru_cruise_test.h"
+#include "ru_orbit_test.h"
 
 void RU_Slow_Loop(void)
 {
@@ -39,7 +40,10 @@ void RU_Init(void)
 {
 	Timer_Init();
 	Encoder_Init();
+#if enable_drive_pid
 	Drive_PIDs_Init();
+#endif
+	Drive_Init();
 	
 // 	/**/ Small_Auto_Init();
 // 	/**/ Encoder_Record_Init();
@@ -51,6 +55,7 @@ void RU_Init(void)
 // 	/**/ Trans_Proc_Init();
 // 	/**/ IR_Test_Init();
 // 	/**/ Cruise_Test_Init();
+	/**/ Orbit_Test_Init();
 }
 
 void RU_Auto_Slow_Loop(void)
@@ -60,7 +65,7 @@ void RU_Auto_Slow_Loop(void)
 
 void RU_Tele_Slow_Loop(void)
 {
- /**/ The_John_Routine();
+//  /**/ The_John_Routine();
 // 	/**/ Drive_PID_Test_Routine();
 // 	/**/ Encoder_Record_Routine();
 // 	/**/ Encoder_Test_Routine();
@@ -73,6 +78,7 @@ void RU_Tele_Slow_Loop(void)
 // 	/**/ Manual_Tank_PID_Drive_Routine();
 // 	/**/ IR_Test_Routine();
 // 	/**/ Cruise_Test_Routine();
+	/**/ Orbit_Test_Routine();
 	
 	// This probably should not ultimately be here.
 	Encoder_Reset_Delta();

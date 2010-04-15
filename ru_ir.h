@@ -8,6 +8,10 @@
 #define Get_Side_Front_IR() (IR_Long_To_In10(ir_filters[1].output))
 #define Get_Side_Rear_IR()  (IR_Long_To_In10(ir_filters[2].output))
 
+#define Get_Front_IR_In()      (Get_Front_IR()/10.0)
+#define Get_Side_Front_IR_In() (Get_Side_Front_IR()/10.0)
+#define Get_Side_Rear_IR_In()  (Get_Side_Rear_IR()/10.0)
+
 int IR_Long_To_In10(int sig);
 int IR_Short_To_In10(int sig);
 

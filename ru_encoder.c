@@ -161,3 +161,23 @@ void Encoder_Reset_Delta(void)
 		encoders[i].last_count = encoders[i].count;
 	}
 }
+
+float Encoder_Get_Angle(void)
+{
+	float d1, d2;
+	
+	d1 = encoders[0].count * encoders[0].gear_ratio;
+	d2 = encoders[1].count * encoders[0].gear_ratio;
+	
+	return (d2 - d1) / 2.0 / TICKS_PER_ROBOT_RADIAN;
+}
+
+float Encoder_Get_Distance(void)
+{
+	float d1, d2;
+	
+	d1 = encoders[0].count * encoders[0].gear_ratio;
+	d2 = encoders[1].count * encoders[0].gear_ratio;
+	
+	return (d1 + d2) / 2.0 / TICKS_PER_METER;
+}
