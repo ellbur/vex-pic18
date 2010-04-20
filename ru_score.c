@@ -59,6 +59,7 @@ static void Done(void)
 // ----------------------------------------------------------
 
 #define backing_up_timeout ((float)3.0)
+#define backing_up_speed   ((int)-127)
 
 static int backing_up_loop_count;
 
@@ -84,6 +85,8 @@ static void Backing_Up_Routine(void)
 		Lifting_Init();
 		return;
 	}
+	
+	Set_Auto_Tank_Drive(backing_up_speed, backing_up_speed);
 	
 	backing_up_loop_count++;
 }

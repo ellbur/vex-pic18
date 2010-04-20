@@ -5,6 +5,14 @@
 #define IR_LONG_TABLE_SIZE  256
 #define IR_SHORT_TABLE_SIZE 256
 
+ir_filter_t ir_filters[num_ir_sensors] = {
+	{ FRONT_IR_NUM },
+	{ SIDE_FRONT_IR_NUM },
+	{ SIDE_REAR_IR_NUM },
+	{ REAR_IR_NUM },
+	{ FRONT_LOW_IR_NUM }
+};
+
 rom const unsigned char ir_long_table_sigo2_in5[IR_LONG_TABLE_SIZE] = {
 	180,180,180,180,180,180,180,180,180,180,180,180,
 	180,180,180,180,180,180,180,180,180,180,180,177,
@@ -71,19 +79,13 @@ int IR_Short_To_In10(int sig)
 
 // ----------------------------------------------------
 
-ir_filter_t ir_filters[num_ir_sensors] = {
-	{ FRONT_IR },
-	{ SIDE_FRONT_IR },
-	{ SIDE_REAR_IR }
-};
-
 void IR_Filter_Routine(void)
 {
 	char i;
 	
 	for (i=0; i<num_ir_sensors; i++) {
 		ir_filters[i].s2 = ir_filters[i].s1;
-		ir_filters[i].s1 = Get_Analog_Value(ir_filters[i].ana_port);
+		ir_filters[i].s1 = Get_Analog(ir_filters[i].ana_port);
 		
 		if (ir_filters[i].s1 > ir_filters[i].s2) {
 			ir_filters[i].output = ir_filters[i].s2;

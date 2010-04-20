@@ -2,9 +2,9 @@
 #include "ru_dump.h"
 #include "ru_config.h"
 #include "ru_motor.h"
-#include "ru_input.h"
 #include "ru_drive.h"
 #include "ru_ramp.h"
+#include "ru_bumper.h"
 
 char dump_done;
 
@@ -75,7 +75,7 @@ static void Running_Routine(void)
 		return;
 	}
 	
-	Set_Omni_Drive(0, RUNNING_Y_SPEED, 0);
+	Set_Auto_Tank_Drive(RUNNING_Y_SPEED, RUNNING_Y_SPEED);
 }
 
 // ---------------------------------------------------------

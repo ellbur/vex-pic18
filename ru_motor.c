@@ -49,13 +49,6 @@ int Linearize_PWM(int u_pwm)
 int To_S(int u_pwm) { return u_pwm - (int)127; }
 int To_U(int s_pwm) { return s_pwm + (int)127; }
 
-int Bang_Bang(int s_button)
-{
-	if      (s_button < To_S(BUTTON_REV_THRESH)) return +127;
-	else if (s_button > To_S(BUTTON_FWD_THRESH)) return -127;
-	return 0;
-}
-
 int Flip(int s_pwm)
 {
 	return -s_pwm;

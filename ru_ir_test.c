@@ -12,14 +12,13 @@ void IR_Test_Routine(void)
 {
 	static int loop = 0;
 	
-	printf("%d: %d %d %d | %d %d %d\n",
+	printf("%d %d %d %d %d %d\n",
 		(int) loop,
-		(int) Get_Analog_Value(FRONT_IR),
-		(int) Get_Analog_Value(SIDE_FRONT_IR),
-		(int) Get_Analog_Value(SIDE_REAR_IR),
 		(int) Get_Front_IR(),
 		(int) Get_Side_Front_IR(),
-		(int) Get_Side_Rear_IR()
+		(int) Get_Side_Rear_IR(),
+		(int) Get_Rear_IR(),
+		(int) Get_Front_Low_IR()
 	);
 	
 	loop++;

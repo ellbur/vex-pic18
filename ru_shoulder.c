@@ -3,27 +3,30 @@
 #include "ru_config.h"
 #include "ru_motor.h"
 
-void Set_Shoulder_Speed(int s_pwm)
-{
-	LEFT_SHOULDER_1  = Normalize_PWM(To_U(Flip(s_pwm)));
-	RIGHT_SHOULDER_1 = Normalize_PWM(To_U(s_pwm));
-	
-	LEFT_SHOULDER_2  = LEFT_SHOULDER_1;
-	RIGHT_SHOULDER_2 = RIGHT_SHOULDER_2;
-}
-
 void Manual_Shoulder_Routine(void)
 {
-	Set_Shoulder_Speed(Bang_Bang(To_S(SHOULDER_BUTTON)));
+	int dir;
+	
+	dir = Get_Shoulder_Button();
+	
+	if (dir < 0) {
+		Set_Shoulder_Speed(-127);
+	}
+	else if (dir > 0) {
+		Set_Shoulder_Speed(+127);
+	}
+	else {
+		Set_Shoulder_Speed(0);
+	}
 }
 
 int Get_Shoulder_Pot(void)
 {
 	int pot;
 	
-	pot = Get_Analog_Value(SHOULDER_POT);
+	pot = Get_Analog(SHOULDER_POT_NUM);
 	if (shoulder_pot_reverse) {
-		pot = 1023 - pot;
+		pot = (int)1023 - pot;
 	}
 	
 	return pot;

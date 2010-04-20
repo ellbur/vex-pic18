@@ -1,0 +1,10 @@
+
+PIC_SOURCES += ifi_startup.c
+PIC_SOURCES += ifi_utilities.c
+PIC_SOURCES += main.c         
+PIC_SOURCES += printf_lib.c
+PIC_SOURCES += user_routines.c
+PIC_SOURCES += user_routines_fast.c
+PIC_SOURCES += ru_encoder_pic.c
+PIC_SOURCES += ru_interrupts_pic.c
+PIC_SOURCES += ru_io_pic.c

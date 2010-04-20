@@ -3,6 +3,7 @@
 #include "ru_pickup.h"
 #include "ru_shoulder.h"
 #include "ru_drive.h"
+#include "ru_move_arm.h"
 
 typedef enum {
 	LIFTING,
@@ -51,41 +52,21 @@ static void Done(void)
 
 // --------------------------------------------------------------
 
-// Get shoulder_lifting_pot_thresh from ru_shoulder.h
-#define lifting_timeout    ((float)2.0) // seconds
-#define lifting_speed      ((int)127)
-
-static int lifting_loop_count;
-
 static void Lifting_Init(void)
 {
 	pickup_state = LIFTING;
 	
-	lifting_loop_count = 0;
+	Move_Arm_Meta_Init(shoulder_pickup_pot_thresh, UP);
 }
 
 static void Lifting_Routine(void)
 {
-	float time;
-	int pot;
-	
-	time = lifting_loop_count * SLOW_LOOP_PERIOD;
-	if (time >= lifting_timeout) {
-		Done();
-		return;
-	}
-	
-	pot = Get_Shoulder_Pot();
-	
-	// Note the sign. Get_Shoulder_Pot() does the flip.
-	if (pot >= shoulder_lifting_pot_thresh) {
+	if (move_arm_done) {
 		Pausing_Init();
 		return;
 	}
 	
-	Set_Shoulder_Speed(lifting_speed);
-	
-	lifting_loop_count++;
+	Move_Arm_Meta_Routine();
 }
 
 // --------------------------------------------------------------
@@ -115,32 +96,19 @@ static void Pausing_Routine(void)
 
 // --------------------------------------------------------------
 
-// Get shoulder_lowering_pot_thresh from ru_shoulder.h
-#define lowering_timeout ((float)1.0)
-
-static int lowering_loop_count;
-
 static void Lowering_Init(void)
 {
 	pickup_state = LOWERING;
 	
-	lowering_loop_count = 0;
+	Move_Arm_Meta_Init(shoulder_lowering_pot_thresh, DOWN);
 }
 
 static void Lowering_Routine(void)
 {
-	float time;
-	int pot;
-	
-	time = lowering_loop_count * SLOW_LOOP_PERIOD;
-	if (time >= lowering_timeout) {
+	if (move_arm_done) {
 		Done();
 		return;
 	}
 	
-	pot = Get_Shoulder_Pot();
-	if (pot <= shoulder_lowering_pot_thresh) {
-		Done();
-		return;
-	}
+	Move_Arm_Meta_Routine();
 }

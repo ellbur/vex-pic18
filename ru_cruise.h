@@ -4,7 +4,8 @@
 
 extern int cruise_target_dist;
 
-void Cruise_Meta_Init(void);
+// Target in meters
+void Cruise_Meta_Init(float target_dist);
 void Cruise_Meta_Routine(void);
 
 #endif

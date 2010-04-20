@@ -4,6 +4,8 @@
 
 #include "ru_config.h"
 
-#define Get_Bumper() (!BUMPER_SWITCH)
+#define rear_ir_thresh ((float)5.5)
+
+int Get_Bumper(void);
 
 #endif

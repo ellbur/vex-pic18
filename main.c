@@ -54,10 +54,12 @@ void main (void)
                                       /* that's how fast the Master uP gives me data. */
       Process_Data_From_Master_uP();  /* You edit this in user_routines.c */
 
-      if (autonomous_mode)            /* DO NOT CHANGE! */
-      {
-        User_Autonomous_Code();        /* You edit this in user_routines_fast.c */
-      }
+	  // Haha I changed it.
+	  // Pressing 5 up on the OI makes this happen. This is not desired.
+//       if (autonomous_mode)            /* DO NOT CHANGE! */
+//       {
+//         User_Autonomous_Code();        /* You edit this in user_routines_fast.c */
+//       }
     }
     Process_Data_From_Local_IO();     /* You edit this in user_routines_fast.c */
                                       /* I'm fast!  I execute during every loop.*/

@@ -7,10 +7,14 @@
 #include "ru_pickup.h"
 #include "ru_turn.h"
 #include "ru_score.h"
+#include "ru_drive.h"
+#include "ru_straight.h"
+#include "ru_random.h"
 
 typedef enum {
 	CRUISE,
 	PICKUP,
+	FORWARD,
 	TURN_AROUND,
 	SCORE,
 	TURN_LEFT,
@@ -32,6 +36,9 @@ static void Cruise_Routine(void);
 
 static void Pickup_Init(void);
 static void Pickup_Routine(void);
+
+static void Forward_Init(void);
+static void Forward_Routine(void);
 static void Decide_Wall(void);
 
 static void Turn_Around_Init(void);
@@ -58,6 +65,7 @@ void Orbit_Meta_Routine(void)
 	switch (orbit_state) {
 		case CRUISE:      Cruise_Routine();      printf("cruise\n");      break;
 		case PICKUP:      Pickup_Routine();      printf("pickup\n");      break;
+		case FORWARD:     Forward_Routine();     printf("forward\n");     break;
 		case TURN_AROUND: Turn_Around_Routine(); printf("turn around\n"); break;
 		case SCORE:       Score_Routine();       printf("score\n");       break;
 		case TURN_LEFT:   Turn_Left_Routine();   printf("turn left\n");   break;
@@ -71,13 +79,23 @@ void Orbit_Meta_Routine(void)
 #define front_dist_thresh ((float)18.0)
 #define front_dist_time   ((int)5) // loops
 
-hold_t dist_trigger;
+#define min_cruise_dist ((float)0.15)
+#define max_cruise_dist ((float)0.90)
+
+static hold_t dist_trigger;
 
 static void Cruise_Init(void)
 {
+	int percent;
+	float cruise_dist;
+	
 	orbit_state = CRUISE;
 	
-	Cruise_Meta_Init();
+	percent = Random() % 100;
+	cruise_dist = min_cruise_dist +
+		(max_cruise_dist - min_cruise_dist) * (percent / 100.0);
+	
+	Cruise_Meta_Init(cruise_dist);
 	Hold_Init(&dist_trigger, front_dist_time);
 }
 
@@ -86,7 +104,7 @@ static void Cruise_Routine(void)
 	float front_dist;
 	
 	front_dist = Get_Front_IR_In();
-	Hold_Step(&dist_trigger, front_dist > front_dist_thresh);
+	Hold_Step(&dist_trigger, front_dist <= front_dist_thresh);
 	
 	printf("front = %d (%d)\n",
 		(int) front_dist,
@@ -112,11 +130,32 @@ static void Pickup_Init(void)
 static void Pickup_Routine(void)
 {
 	if (pickup_done) {
-		Decide_Wall();
+		Forward_Init();
 		return;
 	}
 	
 	Pickup_Meta_Routine();
+}
+
+// -----------------------------------------------------
+
+#define forward_distance ((float)0.10)
+
+static void Forward_Init(void)
+{
+	orbit_state = FORWARD;
+	
+	Straight_Meta_Init(127, forward_distance, 0.5);
+}
+
+static void Forward_Routine(void)
+{
+	if (straight_done) {
+		Decide_Wall();
+		return;
+	}
+	
+	Straight_Meta_Routine();
 }
 
 static void Decide_Wall(void)

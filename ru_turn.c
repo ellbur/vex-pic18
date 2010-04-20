@@ -2,6 +2,7 @@
 #include "ru_turn.h"
 #include "ru_drive.h"
 #include "ru_encoder.h"
+#include "ru_config.h"
 
 typedef enum {
 	TURNING,
@@ -27,7 +28,10 @@ static void Done(void);
 
 void Turn_Meta_Init(double amount_rad)
 {
+	target_amount = amount_rad;
+	
 	Turning_Init();
+	turn_done = 0;
 }
 
 void Turn_Meta_Routine(void)
@@ -60,9 +64,12 @@ static void Turning_Init(void)
 static void Turning_Routine(void)
 {
 	float angle;
-	float target_angle;
 	
 	angle = Encoder_Get_Angle();
+	
+	printf("%d --> %d\n",
+		(int) (angle * 180.0 / PI),
+		(int) (target_angle * 180.0 / PI) );
 	
 	if (angle <= target_angle && target_amount <= 0) {
 		Done();

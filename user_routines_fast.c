@@ -58,6 +58,8 @@ void InterruptVectorLow (void)
 *******************************************************************************/
 void User_Autonomous_Code(void)
 {
+  printf("Entering auto\n");
+	
   /* Initialize all PWMs and Relays when entering Autonomous mode, or else it
      will be stuck with the last values mapped from the joysticks.  Remember, 
      even when Disabled it is reading inputs from the Operator Interface. 

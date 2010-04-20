@@ -2,33 +2,17 @@
 #include "ru_slow_loop.h"
 
 #include "ru_thejohn.h"
-#include "ru_pot_test.h"
-#include "ru_elbow_pickup_test.h"
 #include "ru_config.h"
 #include "ru_motor.h"
 #include "ru_shoulder.h"
-#include "ru_small_auto.h"
-#include "ru_timer.h"
-#include "ru_timer_test.h"
-#include "ru_encoder_test.h"
-#include "ru_encoder_record.h"
 #include "ru_encoder.h"
 #include "ru_drive.h"
-#include "ru_drive_pid_test.h"
-#include "ru_drive_pid.h"
-#include "ru_speed_test.h"
-#include "ru_vel_wave.h"
-#include "ru_vel_noise.h"
-#include "ru_wheel_pid.h"
-#include "ru_trans_proc.h"
-#include "ru_ir_test.h"
 #include "ru_ir.h"
-#include "ru_cruise_test.h"
-#include "ru_orbit_test.h"
+#include "ru_action_test.h"
 
 void RU_Slow_Loop(void)
 {
-	if (rxdata.rc_receiver_status_byte.allbits) {
+	if (Is_Autonomous()) {
 		RU_Auto_Slow_Loop();
 	}
 	else {
@@ -38,11 +22,6 @@ void RU_Slow_Loop(void)
 
 void RU_Init(void)
 {
-	Timer_Init();
-	Encoder_Init();
-#if enable_drive_pid
-	Drive_PIDs_Init();
-#endif
 	Drive_Init();
 	
 // 	/**/ Small_Auto_Init();
@@ -55,7 +34,12 @@ void RU_Init(void)
 // 	/**/ Trans_Proc_Init();
 // 	/**/ IR_Test_Init();
 // 	/**/ Cruise_Test_Init();
-	/**/ Orbit_Test_Init();
+// 	/**/ Orbit_Test_Init();
+// 	/**/ The_John_Init();
+// 	/**/ Pot_Test_Init();
+// 	/**/ Stall_Test_Init();
+	/**/ Action_Test_Init();
+	
 }
 
 void RU_Auto_Slow_Loop(void)
@@ -65,7 +49,7 @@ void RU_Auto_Slow_Loop(void)
 
 void RU_Tele_Slow_Loop(void)
 {
-//  /**/ The_John_Routine();
+// 	/**/ The_John_Routine();
 // 	/**/ Drive_PID_Test_Routine();
 // 	/**/ Encoder_Record_Routine();
 // 	/**/ Encoder_Test_Routine();
@@ -78,10 +62,12 @@ void RU_Tele_Slow_Loop(void)
 // 	/**/ Manual_Tank_PID_Drive_Routine();
 // 	/**/ IR_Test_Routine();
 // 	/**/ Cruise_Test_Routine();
-	/**/ Orbit_Test_Routine();
+// 	/**/ Orbit_Test_Routine();
+// 	/**/ Pot_Test_Routine();
+// 	/**/ Stall_Test_Routine();
+	/**/ Action_Test_Routine();
 	
 	// This probably should not ultimately be here.
-	Encoder_Reset_Delta();
 	IR_Filter_Routine();
 }
 

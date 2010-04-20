@@ -14,7 +14,6 @@ int To_U(int s_pwm);
 /*
  * Signed input and output!!
  */
-int Bang_Bang(int s_button);
 int Flip(int s_pwm);
 
 #endif

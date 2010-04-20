@@ -1,15 +1,7 @@
 
-#include <timers.h>
-#include "ru_interrupts.h"
-#include "ru_encoder.h"
-#include "ru_encoder_record.h"
-#include "ru_timer.h"
-#include "ifi_aliases.h"
-#include "ifi_default.h"
-#include "ifi_utilities.h"
-#include "user_routines.h"
-#include "printf_lib.h"
-#include "delays.h"
+#include "ru_interrupts_pic.h"
+#include "ru_config_pic.h"
+#include "ru_encoder_pic.h"
 
 #pragma code
 #pragma interruptlow InterruptHandlerLow save=PROD,section("MATH_DATA"),section(".tmpdata")
@@ -62,12 +54,5 @@ void InterruptHandlerLow ()
 		if(delta & 0x80) {
 			// Nothing
 		}
-	}
-	
-	// TIMER 0
-	if (INTCONbits.T0IF) {
-		INTCONbits.T0IF = 0;
-		
-		timer_zero_base = timer_zero_base + 0x10000;
 	}
 }

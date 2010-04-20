@@ -4,7 +4,7 @@
 
 void Cruise_Test_Init(void)
 {
-	Cruise_Meta_Init();
+	Cruise_Meta_Init(0.50); // distance in meters
 }
 
 void Cruise_Test_Routine(void)

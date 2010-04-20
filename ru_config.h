@@ -5,23 +5,16 @@
 #define nitish 0
 #define kevin  1
 
-#include "ru_io_aliases.h"
-#include "ifi_aliases.h"
-#include "ifi_default.h"
-#include "ifi_utilities.h"
-#include "ifi_picdefs.h"
-#include "printf_lib.h"
-
-#define BUTTON_REV_THRESH       ((int)100)
-#define BUTTON_FWD_THRESH       ((int)154)
-#define NEUTRAL_VALUE           ((int)127)
-
-#define SLOW_LOOP_PERIOD        ((float) 18.6e-3)
-
 #define PI                      ((float) 3.14159265358979)
 
-#define enable_drive_pid 0
+#include "ru_io.h"
 
-extern unsigned char not_wired;
+#if PIC
+#include "printf_lib.h"
+#endif
+
+#if PIC
+#define SLOW_LOOP_PERIOD ((float)18.6e-3)
+#endif
 
 #endif

@@ -17,10 +17,13 @@
 #include "printf_lib.h"
 
 #include "ru_slow_loop.h"
+#include "ru_config.h"
+#include "ru_encoder_pic.h"
 
-#define BUTTON_REV_THRESH       100
-#define BUTTON_FWD_THRESH       154
-#define NEUTRAL_VALUE           127
+// ru_config.h
+// #define BUTTON_REV_THRESH       100
+// #define BUTTON_FWD_THRESH       154
+// #define NEUTRAL_VALUE           127
 
 #define CODE_VERSION		"basic cat"
 /*** DEFINE USER VARIABLES AND INITIALIZE THEM HERE ***/
@@ -196,6 +199,7 @@ void User_Initialization (void)
   User_Proc_Is_Ready();         /* DO NOT CHANGE! - last line of User_Initialization */
 
   RU_Init();
+  Encoder_Init();
   
 #ifdef _SIMULATOR
     statusflag.NEW_SPI_DATA = 1;
